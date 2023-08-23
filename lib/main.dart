@@ -1,22 +1,13 @@
 import 'package:assistent_app/core/constants.dart';
-import 'package:assistent_app/feachures/main/pages/main_page.dart';
-import 'package:assistent_app/feachures/task/models/task_model.dart';
+import 'package:assistent_app/core/utils/routes/app_router.dart';
 import 'package:assistent_app/generated/l10n.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+void main() {
+  // WidgetsFlutterBinding.ensureInitialized(); must be helpful with splash screen
   runApp(const MainApp());
-  await getApplicationDocumentsDirectory().then(
-    (appDocumentDirectory) {
-      Hive.init(appDocumentDirectory.path);
-    },
-  );
-  Hive.registerAdapter(TaskModelAdapter());
 }
 
 class MainApp extends StatelessWidget {
@@ -30,7 +21,9 @@ class MainApp extends StatelessWidget {
         systemNavigationBarIconBrightness: Brightness.light,
       ),
     );
-    return MaterialApp(
+    AppRouter appRouter = AppRouter();
+    return MaterialApp.router(
+      routerConfig: appRouter.config(),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: 'Roboto',
@@ -42,11 +35,6 @@ class MainApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: S.delegate.supportedLocales,
-      home: const Scaffold(
-        resizeToAvoidBottomInset: false,
-        backgroundColor: backgroundColor,
-        body: MainPage(),
-      ),
     );
   }
 }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 const fontColorBlack = Color.fromRGBO(43, 45, 51, 1);
 const fontColorTitle = Color.fromRGBO(255, 255, 255, 1);
 const fontColorSubtitle = Color.fromRGBO(237, 240, 246, 1);
+const fontColorError = Color.fromRGBO(200, 20, 20, 1);
 
 // Font Weights
 const fontWeightRegular = FontWeight.w400;
@@ -23,3 +24,6 @@ const backgroundEnd = Color.fromRGBO(187, 223, 255, 1);
 // Tasks' Cards' Colors
 const backgroundColor = Color.fromRGBO(255, 255, 255, 1);
 const backgroundBox = Color.fromRGBO(255, 255, 255, 0.15);
+
+// Values
+const mainScreenTaskListLimit = 4;

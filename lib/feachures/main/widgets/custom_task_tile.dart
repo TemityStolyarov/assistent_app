@@ -120,8 +120,10 @@ class _TaskTile extends StatelessWidget {
 }
 
 class TaskList extends StatelessWidget {
+  final int limit;
   const TaskList({
     Key? key,
+    required this.limit,
   }) : super(key: key);
 
   void _showConfirmPanel(BuildContext context, TaskModel task, int index) {
@@ -214,9 +216,7 @@ class TaskList extends StatelessWidget {
           child: ListView.separated(
             itemBuilder: (BuildContext context, int index) {
               final taskModel = Hive.box('tasks').getAt(index) as TaskModel;
-              return InkWell(
-                overlayColor:
-                    const MaterialStatePropertyAll(Colors.transparent),
+              return GestureDetector(
                 onDoubleTap: () => _showConfirmPanel(
                   context,
                   taskModel,
@@ -229,8 +229,8 @@ class TaskList extends StatelessWidget {
                 ),
               );
             },
-            itemCount: tasksBox.length > 4
-                ? tasksBox.length - (tasksBox.length - 4)
+            itemCount: tasksBox.length > limit
+                ? tasksBox.length - (tasksBox.length - limit)
                 : tasksBox.length,
             separatorBuilder: (BuildContext context, int index) {
               return SizedBox(height: 6.sp);

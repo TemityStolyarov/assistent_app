@@ -1,4 +1,5 @@
 import 'package:assistent_app/core/constants.dart';
+import 'package:assistent_app/core/utils/routes/app_router.gr.dart';
 import 'package:assistent_app/feachures/main/widgets/custom_background_container.dart';
 import 'package:assistent_app/feachures/main/widgets/custom_task_tile.dart';
 import 'package:assistent_app/feachures/main/widgets/custom_text.dart';
@@ -7,13 +8,37 @@ import 'package:assistent_app/feachures/task/models/task_model.dart';
 import 'package:assistent_app/feachures/widgets/custom_rounded_button.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 @RoutePage()
-class MainPage extends StatelessWidget {
+class MainPage extends StatefulWidget {
   const MainPage({super.key});
+
+  @override
+  State<MainPage> createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
+  SharedPreferences? prefs;
+
+  @override
+  void initState() {
+    _initPreference().whenComplete(() {
+      setState(() {});
+    });
+    super.initState();
+  }
+
+  _initPreference() async {
+    prefs = await SharedPreferences.getInstance();
+    if (prefs?.getInt('limit') == null) {
+      await prefs?.setInt('limit', mainScreenTaskListLimit);
+    }
+  }
 
   _initDefaultTaskValues() {
     Hive.box('tasks').put(
@@ -89,6 +114,7 @@ class MainPage extends StatelessWidget {
         designSize: const Size(375, 812),
         builder: (context, child) {
           final tasksBox = Hive.box('tasks');
+          int? limit = prefs?.getInt('limit');
           return SafeArea(
             child: BackgroundContainer(
               weather: _getWeather(),
@@ -246,9 +272,11 @@ class MainPage extends StatelessWidget {
                           children: [
                             Padding(
                               padding: EdgeInsets.all(6.sp),
-                              child: const TaskList(),
+                              child: TaskList(
+                                limit: limit!,
+                              ),
                             ),
-                            tasksBox.length > 4
+                            tasksBox.length > limit
                                 ? Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
@@ -259,7 +287,7 @@ class MainPage extends StatelessWidget {
                                         ),
                                         child: CustomText(
                                           text:
-                                              'И еще ${tasksBox.length - 4} задачи на сегодня',
+                                              'И еще ${tasksBox.length - limit} задачи на сегодня',
                                           fontSize: 14.sp,
                                           color: fontColorSubtitle,
                                         ),
@@ -287,16 +315,29 @@ class MainPage extends StatelessWidget {
                         ],
                       ),
                       SizedBox(height: 50.sp),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Icon(
-                            Icons.settings_outlined,
-                            color: backgroundColor,
-                          ),
-                          SizedBox(width: 4.sp),
-                          CustomText(text: 'Параметры', fontSize: 16.sp),
-                        ],
+                      GestureDetector(
+                        onTap: () {
+                          AutoRouter.of(context).push(const SettingsRoute());
+                          Future.delayed(const Duration(milliseconds: 150))
+                              .then((value) {
+                            SystemChrome.setSystemUIOverlayStyle(
+                              const SystemUiOverlayStyle(
+                                systemNavigationBarColor: Colors.white,
+                              ),
+                            );
+                          });
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(
+                              Icons.settings_outlined,
+                              color: backgroundColor,
+                            ),
+                            SizedBox(width: 4.sp),
+                            CustomText(text: 'Параметры', fontSize: 16.sp),
+                          ],
+                        ),
                       ),
                     ],
                   ),

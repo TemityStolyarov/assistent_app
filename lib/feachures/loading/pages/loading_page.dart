@@ -25,7 +25,32 @@ class LoadingPage extends StatelessWidget {
     return FutureBuilder(
       future: _initHive(context),
       builder: ((context, snapshot) {
-        if (snapshot.hasError) {
+        if (!snapshot.hasError) {
+          return Scaffold(
+            resizeToAvoidBottomInset: false,
+            backgroundColor: backgroundColor,
+            body: SafeArea(
+              child: Stack(
+                children: [
+                  Container(
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [backgroundElseWeather, backgroundEnd],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                      ),
+                    ),
+                  ),
+                  const Center(
+                    child: CircularProgressIndicator(
+                      color: fontColorTitle,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        } else {
           //TODO: error screen
           return Scaffold(
             resizeToAvoidBottomInset: false,
@@ -55,31 +80,6 @@ class LoadingPage extends StatelessWidget {
                           style: const TextStyle(color: fontColorTitle),
                         ),
                       ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          );
-        } else {
-          return Scaffold(
-            resizeToAvoidBottomInset: false,
-            backgroundColor: backgroundColor,
-            body: SafeArea(
-              child: Stack(
-                children: [
-                  Container(
-                    decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [backgroundElseWeather, backgroundEnd],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                      ),
-                    ),
-                  ),
-                  const Center(
-                    child: CircularProgressIndicator(
-                      color: fontColorTitle,
                     ),
                   ),
                 ],

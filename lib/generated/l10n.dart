@@ -51,6 +51,104 @@ class S {
   }
 
   // skipped getter for the '' key
+
+  /// `И еще`
+  String get and {
+    return Intl.message(
+      'И еще',
+      name: 'and',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{tasks, plural, zero{задач} one{задача} few{задачи} other{задач}}`
+  String tasks(num tasks) {
+    return Intl.plural(
+      tasks,
+      zero: 'задач',
+      one: 'задача',
+      few: 'задачи',
+      other: 'задач',
+      name: 'tasks',
+      desc: '',
+      args: [tasks],
+    );
+  }
+
+  /// `на сегодня`
+  String get for_today {
+    return Intl.message(
+      'на сегодня',
+      name: 'for_today',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Settings Page`
+  String get _ {
+    return Intl.message(
+      'Settings Page',
+      name: '_',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Количество задач, отображаемых на главном\nэкране приложения: до`
+  String get task_amount_showing_on_main_page {
+    return Intl.message(
+      'Количество задач, отображаемых на главном\nэкране приложения: до',
+      name: 'task_amount_showing_on_main_page',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{elements, plural, zero{элементов} one{элемента} few{элементов} other{элементов}}`
+  String elements(num elements) {
+    return Intl.plural(
+      elements,
+      zero: 'элементов',
+      one: 'элемента',
+      few: 'элементов',
+      other: 'элементов',
+      name: 'elements',
+      desc: '',
+      args: [elements],
+    );
+  }
+
+  /// `Errors`
+  String get __ {
+    return Intl.message(
+      'Errors',
+      name: '__',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Произошла непредвиденная ошибка при загрузке главного экрана\n\nПожалуйста, обратитесь в поддержку`
+  String get error_on_loading_main_page {
+    return Intl.message(
+      'Произошла непредвиденная ошибка при загрузке главного экрана\n\nПожалуйста, обратитесь в поддержку',
+      name: 'error_on_loading_main_page',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Произошла непредвиденная ошибка при загрузке экрана настроек\n\nПожалуйста, обратитесь в поддержку`
+  String get error_on_loading_settings_page {
+    return Intl.message(
+      'Произошла непредвиденная ошибка при загрузке экрана настроек\n\nПожалуйста, обратитесь в поддержку',
+      name: 'error_on_loading_settings_page',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

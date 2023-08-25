@@ -66,7 +66,6 @@ class CustomTextField extends StatelessWidget {
         signed: false,
       ),
       validator: (value) {
-        print(value);
         if ((value == null || value.isEmpty) && required) {
           return 'Это поле является обязательным!';
           //return S.of(context).required_field;

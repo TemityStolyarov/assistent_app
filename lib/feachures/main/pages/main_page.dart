@@ -1,5 +1,11 @@
 import 'package:assistent_app/core/constants.dart';
+import 'package:assistent_app/feachures/widgets/error_container.dart';
+import 'package:assistent_app/feachures/main/widgets/no_tasks_today_container.dart';
+import 'package:assistent_app/feachures/main/widgets/weather_statistic.dart';
+import 'package:assistent_app/generated/l10n.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:assistent_app/core/utils/routes/app_router.gr.dart';
+import 'package:assistent_app/feachures/main/bloc/main_page_bloc.dart';
 import 'package:assistent_app/feachures/main/widgets/custom_background_container.dart';
 import 'package:assistent_app/feachures/main/widgets/custom_task_tile.dart';
 import 'package:assistent_app/feachures/main/widgets/custom_text.dart';
@@ -12,34 +18,40 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 @RoutePage()
-class MainPage extends StatefulWidget {
-  const MainPage({super.key});
+class MainPage extends StatelessWidget {
+  const MainPage({
+    super.key,
+  });
 
   @override
-  State<MainPage> createState() => _MainPageState();
+  Widget build(BuildContext context) {
+    return BlocProvider<MainPageBloc>(
+      create: (context) => MainPageBloc(),
+      child: BlocBuilder<MainPageBloc, MainPageState>(
+        builder: (context, state) {
+          context.read<MainPageBloc>().add(MainPageOnChangeEvent());
+          if (state is MainPageOnChangeState) {
+            return _MainPageBody(limit: state.limit);
+          }
+          return ErrorContainer(
+            errorMessage: S.of(context).error_on_loading_main_page,
+            isScaffoldNeeded: true,
+          );
+        },
+      ),
+    );
+  }
 }
 
-class _MainPageState extends State<MainPage> {
-  SharedPreferences? prefs;
+class _MainPageBody extends StatelessWidget {
+  final int limit;
+  const _MainPageBody({
+    required this.limit,
+  });
 
-  @override
-  void initState() {
-    _initPreference().whenComplete(() {
-      setState(() {});
-    });
-    super.initState();
-  }
-
-  _initPreference() async {
-    prefs = await SharedPreferences.getInstance();
-    if (prefs?.getInt('limit') == null) {
-      await prefs?.setInt('limit', mainScreenTaskListLimit);
-    }
-  }
-
+  //TODO Remove tasks before publishing
   _initDefaultTaskValues() {
     Hive.box('tasks').put(
       0,
@@ -114,7 +126,6 @@ class _MainPageState extends State<MainPage> {
         designSize: const Size(375, 812),
         builder: (context, child) {
           final tasksBox = Hive.box('tasks');
-          int? limit = prefs?.getInt('limit');
           return SafeArea(
             child: BackgroundContainer(
               weather: _getWeather(),
@@ -124,134 +135,9 @@ class _MainPageState extends State<MainPage> {
                   padding: EdgeInsets.all(16.sp),
                   child: Column(
                     children: [
-                      Row(
-                        children: [
-                          Image.asset(
-                            'assets/images/thunder.png',
-                            height: 28.sp,
-                          ),
-                          SizedBox(width: 10.sp),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              CustomText(
-                                text: '28º',
-                                fontSize: 14.sp,
-                              ),
-                              CustomText(
-                                text: 'Гроза',
-                                fontSize: 14.sp,
-                                fontWeight: fontWeightMedium,
-                              ),
-                            ],
-                          ),
-                          const Spacer(),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              CustomText(
-                                text: 'Макс.: 31º, Мин.: 25º',
-                                fontSize: 14.sp,
-                              ),
-                              Row(
-                                children: [
-                                  Image.asset(
-                                    'assets/images/pin_icon.png',
-                                    height: 14.sp,
-                                  ),
-                                  SizedBox(width: 3.sp),
-                                  CustomText(
-                                    text: 'Ростов-на-Дону, Россия',
-                                    fontSize: 14.sp,
-                                    fontWeight: fontWeightMedium,
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
+                      const WeatherStatisticHeader(),
                       SizedBox(height: 16.sp),
-                      TileContainer(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                            vertical: 8.sp,
-                            horizontal: 19.sp,
-                          ),
-                          child: Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Image.asset(
-                                    'assets/images/wind_icon.png',
-                                    height: 24.sp,
-                                  ),
-                                  SizedBox(width: 8.sp),
-                                  CustomText(
-                                    text: '2 м/с',
-                                    fontSize: 15.sp,
-                                    fontWeight: fontWeightMedium,
-                                  ),
-                                  const Spacer(),
-                                  SizedBox(
-                                    width: 206.sp,
-                                    child: CustomText(
-                                      text: 'Ветер северо-восточный',
-                                      fontSize: 15.sp,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: 8.sp),
-                              Row(
-                                children: [
-                                  Image.asset(
-                                    'assets/images/drop_icon.png',
-                                    height: 24.sp,
-                                  ),
-                                  SizedBox(width: 8.sp),
-                                  CustomText(
-                                    text: '100%',
-                                    fontSize: 15.sp,
-                                    fontWeight: fontWeightMedium,
-                                  ),
-                                  const Spacer(),
-                                  SizedBox(
-                                    width: 206.sp,
-                                    child: CustomText(
-                                      text: 'Высокая влажность',
-                                      fontSize: 15.sp,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: 8.sp),
-                              Row(
-                                children: [
-                                  Image.asset(
-                                    'assets/images/sun_icon.png',
-                                    height: 24.sp,
-                                  ),
-                                  SizedBox(width: 8.sp),
-                                  CustomText(
-                                    text: 'УФ 3',
-                                    fontSize: 15.sp,
-                                    fontWeight: fontWeightMedium,
-                                  ),
-                                  const Spacer(),
-                                  SizedBox(
-                                    width: 206.sp,
-                                    child: CustomText(
-                                      text: 'Умеренный УФ индекс',
-                                      fontSize: 15.sp,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
+                      const WeatherStatisticDetails(),
                       SizedBox(height: 24.sp),
                       Row(
                         children: [
@@ -267,37 +153,52 @@ class _MainPageState extends State<MainPage> {
                         ],
                       ),
                       SizedBox(height: 6.sp),
-                      TileContainer(
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.all(6.sp),
-                              child: TaskList(
-                                limit: limit!,
-                              ),
-                            ),
-                            tasksBox.length > limit
-                                ? Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
+                      if (tasksBox.length != 0 && limit == 0)
+                        const NoTasksTodayContainer(
+                          isAllTaskHidden: true,
+                        )
+                      else
+                        tasksBox.length <= 0
+                            ? const NoTasksTodayContainer(
+                                isAllTaskHidden: false,
+                              )
+                            : AnimatedSize(
+                                curve: Curves.easeOut,
+                                alignment: Alignment.topCenter,
+                                duration: const Duration(milliseconds: 300),
+                                child: TileContainer(
+                                  child: Column(
                                     children: [
                                       Padding(
-                                        padding: EdgeInsets.symmetric(
-                                          horizontal: 12.sp,
-                                          vertical: 6.sp,
-                                        ),
-                                        child: CustomText(
-                                          text:
-                                              'И еще ${tasksBox.length - limit} задачи на сегодня',
-                                          fontSize: 14.sp,
-                                          color: fontColorSubtitle,
+                                        padding: EdgeInsets.all(6.sp),
+                                        child: TaskList(
+                                          limit: limit,
                                         ),
                                       ),
+                                      tasksBox.length <= limit
+                                          ? const SizedBox()
+                                          : Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.end,
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsets.symmetric(
+                                                    horizontal: 12.sp,
+                                                    vertical: 6.sp,
+                                                  ),
+                                                  child: CustomText(
+                                                    text:
+                                                        '${S.of(context).and} ${tasksBox.length - limit} ${S.of(context).tasks(tasksBox.length - limit)} ${S.of(context).for_today}',
+                                                    fontSize: 14.sp,
+                                                    color: fontColorSubtitle,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
                                     ],
-                                  )
-                                : const SizedBox(),
-                          ],
-                        ),
-                      ),
+                                  ),
+                                ),
+                              ),
                       SizedBox(height: 16.sp),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,

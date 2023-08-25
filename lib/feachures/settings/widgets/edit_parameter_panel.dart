@@ -54,21 +54,16 @@ class _EditParameterPanelState extends State<EditParameterPanel> {
               SizedBox(height: 20.sp),
               CustomTextField(
                 controller: _parameter,
-                text: 'Значение параметра', //S.of(context).gift_name,
+                text: 'Значение параметра',
                 required: true,
               ),
               SizedBox(height: 30.sp),
               RoundedButton(
-                title: 'Подтвердить', //S.of(context).add_gift
+                title: 'Подтвердить',
                 fontSize: 16.sp,
                 width: 181.sp,
                 height: 50.sp,
                 onPressed: () {
-                  // final newGift = GiftModel(
-                  //   name: _nameController.text,
-                  //   link: _linkController.text,
-                  //   reserved: false,
-                  // );
                   _editParameter(_parameter.text);
                 },
                 buttonColor: backgroundElseWeather,

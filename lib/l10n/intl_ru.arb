@@ -1,3 +1,12 @@
 {
-    "": "Main Page"
+    "": "Main Page",
+    "and": "И еще",
+    "tasks": "{tasks, plural, zero{задач} one{задача} few{задачи} other{задач}}",
+    "for_today": "на сегодня",
+    "_": "Settings Page",
+    "task_amount_showing_on_main_page": "Количество задач, отображаемых на главном\nэкране приложения: до",
+    "elements": "{elements, plural, zero{элементов} one{элемента} few{элементов} other{элементов}}",
+    "__": "Errors",
+    "error_on_loading_main_page": "Произошла непредвиденная ошибка при загрузке главного экрана\n\nПожалуйста, обратитесь в поддержку",
+    "error_on_loading_settings_page": "Произошла непредвиденная ошибка при загрузке экрана настроек\n\nПожалуйста, обратитесь в поддержку"
 }

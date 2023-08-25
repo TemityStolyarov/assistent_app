@@ -1,6 +1,6 @@
 import 'package:assistent_app/core/constants.dart';
-import 'package:assistent_app/core/utils/routes/app_router.gr.dart';
-import 'package:auto_route/auto_route.dart';
+// import 'package:assistent_app/core/utils/routes/app_router.gr.dart';
+// import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -39,9 +39,9 @@ class CustomAppBar extends StatelessWidget {
                 splashRadius: 0.0001,
                 iconSize: 18.sp,
                 onPressed: () {
-                  AutoRouter.of(context).pushAndPopUntil(const MainRoute(),
-                      predicate: (route) => true);
-
+                  // AutoRouter.of(context).pushAndPopUntil(const MainRoute(),
+                  //     predicate: (route) => true);
+                  Navigator.of(context).pop();
                   SystemChrome.setSystemUIOverlayStyle(
                     const SystemUiOverlayStyle(
                       systemNavigationBarColor: backgroundEnd,

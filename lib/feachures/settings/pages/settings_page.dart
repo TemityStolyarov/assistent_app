@@ -1,41 +1,47 @@
 import 'package:assistent_app/core/constants.dart';
 import 'package:assistent_app/feachures/main/widgets/custom_text.dart';
+import 'package:assistent_app/feachures/settings/bloc/settings_bloc.dart';
 import 'package:assistent_app/feachures/widgets/custom_app_bar.dart';
 import 'package:assistent_app/feachures/widgets/custom_scaffold.dart';
-import 'package:assistent_app/settings/widgets/edit_parameter_panel.dart';
+import 'package:assistent_app/feachures/widgets/error_container.dart';
+import 'package:assistent_app/generated/l10n.dart';
+import 'package:assistent_app/feachures/settings/widgets/edit_parameter_panel.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 @RoutePage()
-class SettingsPage extends StatefulWidget {
+class SettingsPage extends StatelessWidget {
   const SettingsPage({
     super.key,
   });
 
   @override
-  State<SettingsPage> createState() => _SettingsPageState();
+  Widget build(BuildContext context) {
+    return BlocProvider<SettingsBloc>(
+      create: (context) => SettingsBloc(),
+      child: BlocBuilder<SettingsBloc, SettingsState>(
+        builder: (context, state) {
+          context.read<SettingsBloc>().add(SettingsChangedEvent());
+          if (state is SettingsInitializedState) {
+            return _SettingsPageBody(limit: state.limit);
+          }
+          return ErrorContainer(
+            errorMessage: S.of(context).error_on_loading_settings_page,
+            isScaffoldNeeded: true,
+          );
+        },
+      ),
+    );
+  }
 }
 
-class _SettingsPageState extends State<SettingsPage> {
-  SharedPreferences? prefs;
-  int limit = 3;
-
-  @override
-  void initState() {
-    super.initState();
-    _initPreference().whenComplete(() {
-      setState(() {});
-    });
-  }
-
-  _initPreference() async {
-    prefs = await SharedPreferences.getInstance();
-    if (prefs?.getInt('limit') == null) {
-      await prefs?.setInt('limit', mainScreenTaskListLimit);
-    }
-  }
+class _SettingsPageBody extends StatelessWidget {
+  final int limit;
+  const _SettingsPageBody({
+    required this.limit,
+  });
 
   void _showSlidingPanel(BuildContext context) {
     showModalBottomSheet(
@@ -94,7 +100,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           SizedBox(width: 10.sp),
                           CustomText(
                             text:
-                                'Количество задач, отображаемых на главной\nстранице приложения: ${prefs?.getInt('limit')} элемента',
+                                '${S.of(context).task_amount_showing_on_main_page} $limit ${S.of(context).elements(limit)}',
                             fontSize: 14.sp,
                             color: fontColorBlack,
                             overflow: TextOverflow.visible,
@@ -125,7 +131,15 @@ class _SettingsPageState extends State<SettingsPage> {
                       SizedBox(height: 10.sp),
                       CustomText(
                         text:
-                            '• Задачи без установленной даты завершения автоматически помещаются в раздел "отложенные"',
+                            '• Задачи без установленной даты завершения автоматически помещаются в раздел "отложенные";',
+                        fontSize: 14.sp,
+                        color: fontColorBlack,
+                        overflow: TextOverflow.visible,
+                      ),
+                      SizedBox(height: 10.sp),
+                      CustomText(
+                        text:
+                            '• Установите лимит задач для главного экрана равным нулю, чтобы скрыть задачи на сегодня',
                         fontSize: 14.sp,
                         color: fontColorBlack,
                         overflow: TextOverflow.visible,

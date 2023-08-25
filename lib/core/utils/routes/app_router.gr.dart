@@ -10,7 +10,8 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:assistent_app/feachures/loading/pages/loading_page.dart' as _i1;
 import 'package:assistent_app/feachures/main/pages/main_page.dart' as _i2;
-import 'package:assistent_app/settings/pages/settings_page.dart' as _i3;
+import 'package:assistent_app/feachures/settings/pages/settings_page.dart'
+    as _i3;
 import 'package:auto_route/auto_route.dart' as _i4;
 
 abstract class $AppRouter extends _i4.RootStackRouter {

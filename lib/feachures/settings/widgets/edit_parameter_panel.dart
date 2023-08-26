@@ -29,7 +29,9 @@ class _EditParameterPanelState extends State<EditParameterPanel> {
     if (_formKey.currentState!.validate()) {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setInt('limit', int.parse(limit));
-      Navigator.pop(context);
+      if (context.mounted) {
+        Navigator.pop(context);
+      }
     }
   }
 
@@ -52,7 +54,7 @@ class _EditParameterPanelState extends State<EditParameterPanel> {
                 ),
               ),
               SizedBox(height: 20.sp),
-              CustomTextField(
+              CustomNumberTextField(
                 controller: _parameter,
                 text: 'Значение параметра',
                 required: true,

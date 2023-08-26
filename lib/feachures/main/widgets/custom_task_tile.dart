@@ -1,5 +1,6 @@
 import 'package:assistent_app/core/constants.dart';
 import 'package:assistent_app/feachures/main/widgets/custom_text.dart';
+import 'package:assistent_app/feachures/main/widgets/edit_task_panel.dart';
 import 'package:assistent_app/feachures/task/models/task_model.dart';
 import 'package:assistent_app/feachures/widgets/custom_rounded_button.dart';
 import 'package:flutter/material.dart';
@@ -27,14 +28,14 @@ class _TaskTile extends StatelessWidget {
     if (taskModel.isDone) {
       fontWeight = fontWeightRegular;
       tileColor = backgroundColor.withOpacity(0.05);
-      if (taskModel.important) {
+      if (taskModel.isImportant) {
         fontWeight = fontWeightMedium;
         strokeColor = backgroundColor.withOpacity(0.15);
       }
     } else {
       fontWeight = fontWeightMedium;
       tileColor = backgroundColor.withOpacity(0.2);
-      if (taskModel.important) {
+      if (taskModel.isImportant) {
         fontWeight = fontWeightBold;
         strokeColor = backgroundColor.withOpacity(0.65);
         tileColor = backgroundColor.withOpacity(0.35);
@@ -70,7 +71,7 @@ class _TaskTile extends StatelessWidget {
                   TaskModel(
                     name: taskModel.name,
                     note: taskModel.note,
-                    important: taskModel.important,
+                    isImportant: taskModel.isImportant,
                     date: taskModel.date,
                     isDone: !taskModel.isDone,
                   ),
@@ -125,6 +126,40 @@ class TaskList extends StatelessWidget {
     Key? key,
     required this.limit,
   }) : super(key: key);
+
+  void _showEditTaskPanel(BuildContext context, TaskModel task, int index) {
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        systemNavigationBarColor: Colors.white,
+      ),
+    );
+    showModalBottomSheet(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(12.sp),
+        ),
+      ),
+      context: context,
+      isScrollControlled: true,
+      builder: (BuildContext context) {
+        return EditTaskPanel(
+          index: index,
+        );
+      },
+    ).whenComplete(
+      () {
+        Future.delayed(const Duration(milliseconds: 200)).whenComplete(
+          () {
+            SystemChrome.setSystemUIOverlayStyle(
+              const SystemUiOverlayStyle(
+                systemNavigationBarColor: backgroundEnd,
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
 
   void _showConfirmPanel(BuildContext context, TaskModel task, int index) {
     SystemChrome.setSystemUIOverlayStyle(
@@ -182,17 +217,16 @@ class TaskList extends StatelessWidget {
                     // text: S.of(context).delete,
                     buttonColor: backgroundElseWeather,
                   ),
-                  //
                 ],
               ),
             ),
           ),
         );
       },
-    ).then(
-      (value) {
-        Future.delayed(const Duration(milliseconds: 200)).then(
-          (value) {
+    ).whenComplete(
+      () {
+        Future.delayed(const Duration(milliseconds: 200)).whenComplete(
+          () {
             SystemChrome.setSystemUIOverlayStyle(
               const SystemUiOverlayStyle(
                 systemNavigationBarColor: backgroundEnd,
@@ -218,6 +252,11 @@ class TaskList extends StatelessWidget {
               final taskModel = Hive.box('tasks').getAt(index) as TaskModel;
               return GestureDetector(
                 onDoubleTap: () => _showConfirmPanel(
+                  context,
+                  taskModel,
+                  index,
+                ),
+                onTap: () => _showEditTaskPanel(
                   context,
                   taskModel,
                   index,

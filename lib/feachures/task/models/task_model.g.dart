@@ -18,10 +18,10 @@ class TaskModelAdapter extends TypeAdapter<TaskModel> {
     };
     return TaskModel(
       name: fields[0] as String,
-      important: fields[1] as bool,
+      isImportant: fields[1] as bool,
       isDone: fields[2] as bool,
       note: fields[3] as String,
-      date: fields[4] as DateTime?,
+      date: fields[4] as String?,
     );
   }
 
@@ -32,7 +32,7 @@ class TaskModelAdapter extends TypeAdapter<TaskModel> {
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
-      ..write(obj.important)
+      ..write(obj.isImportant)
       ..writeByte(2)
       ..write(obj.isDone)
       ..writeByte(3)

@@ -7,17 +7,17 @@ class TaskModel {
   @HiveField(0)
   final String name;
   @HiveField(1)
-  final bool important;
+  final bool isImportant;
   @HiveField(2)
   final bool isDone;
   @HiveField(3)
   final String note;
   @HiveField(4)
-  final DateTime? date;
+  final String? date;
 
   TaskModel({
     required this.name,
-    required this.important,
+    required this.isImportant,
     required this.isDone,
     this.note = '',
     this.date,

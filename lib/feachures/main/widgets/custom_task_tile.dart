@@ -27,18 +27,19 @@ class _TaskTile extends StatelessWidget {
     Color strokeColor = backgroundColor.withOpacity(0);
     if (taskModel.isDone) {
       fontWeight = fontWeightRegular;
-      tileColor = backgroundColor.withOpacity(0.05);
+      tileColor = backgroundColor.withOpacity(0);
+      strokeColor = backgroundColor.withOpacity(0);
       if (taskModel.isImportant) {
         fontWeight = fontWeightMedium;
-        strokeColor = backgroundColor.withOpacity(0.15);
+        strokeColor = backgroundColor.withOpacity(0.06);
       }
     } else {
       fontWeight = fontWeightMedium;
       tileColor = backgroundColor.withOpacity(0.2);
       if (taskModel.isImportant) {
         fontWeight = fontWeightBold;
-        strokeColor = backgroundColor.withOpacity(0.65);
-        tileColor = backgroundColor.withOpacity(0.35);
+        strokeColor = backgroundColor.withOpacity(0.4);
+        tileColor = backgroundColor.withOpacity(0.3);
       }
     }
     return Container(

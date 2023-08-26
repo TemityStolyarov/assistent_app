@@ -37,6 +37,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "error_on_loading_settings_page": MessageLookupByLibrary.simpleMessage(
             "Произошла непредвиденная ошибка при загрузке экрана настроек\n\nПожалуйста, обратитесь в поддержку"),
         "for_today": MessageLookupByLibrary.simpleMessage("на сегодня"),
+        "required_field": MessageLookupByLibrary.simpleMessage(
+            "Это поле является обязательным"),
         "task_amount_showing_on_main_page": MessageLookupByLibrary.simpleMessage(
             "Количество задач, отображаемых на главном\nэкране приложения: до"),
         "tasks": m1

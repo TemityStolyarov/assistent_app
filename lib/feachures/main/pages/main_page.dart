@@ -1,4 +1,5 @@
 import 'package:assistent_app/core/constants.dart';
+import 'package:assistent_app/feachures/main/widgets/add_task_panel.dart';
 import 'package:assistent_app/feachures/widgets/error_container.dart';
 import 'package:assistent_app/feachures/main/widgets/no_tasks_today_container.dart';
 import 'package:assistent_app/feachures/main/widgets/weather_statistic.dart';
@@ -10,7 +11,6 @@ import 'package:assistent_app/feachures/main/widgets/custom_background_container
 import 'package:assistent_app/feachures/main/widgets/custom_task_tile.dart';
 import 'package:assistent_app/feachures/main/widgets/custom_text.dart';
 import 'package:assistent_app/feachures/main/widgets/custom_tile_container.dart';
-import 'package:assistent_app/feachures/task/models/task_model.dart';
 import 'package:assistent_app/feachures/widgets/custom_rounded_button.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -53,60 +53,92 @@ class _MainPageBody extends StatelessWidget {
 
   //TODO Remove tasks before publishing
   _initDefaultTaskValues() {
-    Hive.box('tasks').put(
-      0,
-      TaskModel(
-        name: 'Важная задача',
-        note: 'Ни в коем случае нельзя пропустить ее выполнение',
-        important: true,
-        isDone: false,
+    // Hive.box('tasks').put(
+    //   0,
+    //   TaskModel(
+    //     name: 'Важная задача',
+    //     note: 'Ни в коем случае нельзя пропустить ее выполнение',
+    //     important: true,
+    //     isDone: false,
+    //   ),
+    // );
+    // Hive.box('tasks').put(
+    //   1,
+    //   TaskModel(
+    //     name: 'Еще одна обычная задача',
+    //     note:
+    //         'Сверстать на Flutter - еще проще, чем сделать дизайн, если честно',
+    //     important: false,
+    //     isDone: false,
+    //   ),
+    // );
+    // Hive.box('tasks').put(
+    //   2,
+    //   TaskModel(
+    //     name: 'Выполненная важная задача',
+    //     note: 'Сделать дизайн страницы - обычное легкое дело',
+    //     important: true,
+    //     isDone: true,
+    //   ),
+    // );
+    // Hive.box('tasks').put(
+    //   3,
+    //   TaskModel(
+    //     name: 'Выполненная задача',
+    //     note: 'Это было легко, не так ли?',
+    //     important: false,
+    //     isDone: true,
+    //   ),
+    // );
+    // Hive.box('tasks').put(
+    //   4,
+    //   TaskModel(
+    //     name: 'Скрытая задача',
+    //     note: 'Тсс, ее тут нет',
+    //     important: false,
+    //     isDone: false,
+    //   ),
+    // );
+    // Hive.box('tasks').put(
+    //   5,
+    //   TaskModel(
+    //     name: 'Отложенная задача',
+    //     note: 'Кто ж знал, что будет еще один параметр?',
+    //     important: false,
+    //     isDone: false,
+    //   ),
+    // );
+  }
+
+  void _showAddTaskSlidingPanel(BuildContext context) {
+    showModalBottomSheet(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(12.sp),
+        ),
       ),
-    );
-    Hive.box('tasks').put(
-      1,
-      TaskModel(
-        name: 'Еще одна обычная задача',
-        note:
-            'Сверстать на Flutter - еще проще, чем сделать дизайн, если честно',
-        important: false,
-        isDone: false,
-      ),
-    );
-    Hive.box('tasks').put(
-      2,
-      TaskModel(
-        name: 'Выполненная важная задача',
-        note: 'Сделать дизайн страницы - обычное легкое дело',
-        important: true,
-        isDone: true,
-      ),
-    );
-    Hive.box('tasks').put(
-      3,
-      TaskModel(
-        name: 'Выполненная задача',
-        note: 'Это было легко, не так ли?',
-        important: false,
-        isDone: true,
-      ),
-    );
-    Hive.box('tasks').put(
-      4,
-      TaskModel(
-        name: 'Скрытая задача',
-        note: 'Тсс, ее тут нет',
-        important: false,
-        isDone: false,
-      ),
-    );
-    Hive.box('tasks').put(
-      5,
-      TaskModel(
-        name: 'Отложенная задача',
-        note: 'Кто ж знал, что будет еще один параметр?',
-        important: false,
-        isDone: false,
-      ),
+      context: context,
+      isScrollControlled: true,
+      builder: (BuildContext context) {
+        SystemChrome.setSystemUIOverlayStyle(
+          const SystemUiOverlayStyle(
+            systemNavigationBarColor: Colors.white,
+          ),
+        );
+        return const AddTaskPanel();
+      },
+    ).whenComplete(
+      () {
+        Future.delayed(const Duration(milliseconds: 200)).whenComplete(
+          () {
+            SystemChrome.setSystemUIOverlayStyle(
+              const SystemUiOverlayStyle(
+                systemNavigationBarColor: backgroundEnd,
+              ),
+            );
+          },
+        );
+      },
     );
   }
 
@@ -118,7 +150,7 @@ class _MainPageBody extends StatelessWidget {
   Widget build(BuildContext context) {
     String locale = Localizations.localeOf(context).languageCode;
     String dayMonth = DateFormat.MMMMd(locale).format(DateTime.now());
-    _initDefaultTaskValues();
+    // _initDefaultTaskValues();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: backgroundColor,
@@ -211,7 +243,9 @@ class _MainPageBody extends StatelessWidget {
                           const Spacer(),
                           RoundedButton(
                             title: 'Добавить задачу',
-                            onPressed: () {},
+                            onPressed: () {
+                              _showAddTaskSlidingPanel(context);
+                            },
                           ),
                         ],
                       ),
@@ -220,7 +254,7 @@ class _MainPageBody extends StatelessWidget {
                         onTap: () {
                           AutoRouter.of(context).push(const SettingsRoute());
                           Future.delayed(const Duration(milliseconds: 150))
-                              .then((value) {
+                              .whenComplete(() {
                             SystemChrome.setSystemUIOverlayStyle(
                               const SystemUiOverlayStyle(
                                 systemNavigationBarColor: Colors.white,

@@ -149,6 +149,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Это поле является обязательным`
+  String get required_field {
+    return Intl.message(
+      'Это поле является обязательным',
+      name: 'required_field',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

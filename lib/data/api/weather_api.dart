@@ -1,10 +1,12 @@
 import 'package:assistent_app/data/models/weather/weather_model.dart';
+import 'package:assistent_app/generated/l10n.dart';
 import 'package:dio/dio.dart';
 
 class WeatherAPI {
   final Dio _dio = Dio();
 
   Future<WeatherModel> getWeather({
+    required S locale,
     required double longitude,
     required double latitude,
   }) async {
@@ -20,7 +22,7 @@ class WeatherAPI {
       final weatherModel = WeatherModel.fromJson(json);
       return weatherModel;
     } else {
-      throw Exception('Error, status code: ${response.statusCode}');
+      throw Exception('${locale.errorStatusCode} ${response.statusCode}');
     }
   }
 }

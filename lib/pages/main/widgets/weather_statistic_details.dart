@@ -12,6 +12,7 @@ class WeatherStatisticDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final S locale = S.of(context);
     return TileContainer(
       child: Padding(
         padding: EdgeInsets.symmetric(
@@ -23,12 +24,12 @@ class WeatherStatisticDetails extends StatelessWidget {
             Row(
               children: [
                 Image.asset(
-                  'assets/images/wind_icon.png',
+                  locale.windAsset,
                   height: 24.sp,
                 ),
                 SizedBox(width: 8.sp),
                 CustomText(
-                  text: '${weatherModel.fact.windSpeed} м/с',
+                  text: '${weatherModel.fact.windSpeed} ${locale.windSpeed}',
                   fontSize: 15.sp,
                   fontWeight: fontWeightMedium,
                 ),
@@ -46,7 +47,7 @@ class WeatherStatisticDetails extends StatelessWidget {
             Row(
               children: [
                 Image.asset(
-                  'assets/images/drop_icon.png',
+                  locale.dropAsset,
                   height: 24.sp,
                 ),
                 SizedBox(width: 8.sp),
@@ -60,10 +61,10 @@ class WeatherStatisticDetails extends StatelessWidget {
                   width: 206.sp,
                   child: CustomText(
                     text: weatherModel.fact.humidity > 65
-                        ? 'Высокая влажность'
+                        ? locale.highHumid
                         : weatherModel.fact.humidity > 45
-                            ? 'Умеренная влажность'
-                            : 'Пониженная влажность',
+                            ? locale.mediumHumid
+                            : locale.lowHumid,
                     fontSize: 15.sp,
                   ),
                 ),
@@ -73,12 +74,13 @@ class WeatherStatisticDetails extends StatelessWidget {
             Row(
               children: [
                 Image.asset(
-                  'assets/images/sun_icon.png',
+                  locale.sunAsset,
                   height: 24.sp,
                 ),
                 SizedBox(width: 8.sp),
                 CustomText(
-                  text: 'УФ ${weatherModel.forecasts[0].parts['day']!.uvIndex}',
+                  text:
+                      '${locale.uv} ${weatherModel.forecasts[0].parts['day']!.uvIndex}',
                   fontSize: 15.sp,
                   fontWeight: fontWeightMedium,
                 ),
@@ -87,10 +89,10 @@ class WeatherStatisticDetails extends StatelessWidget {
                   width: 206.sp,
                   child: CustomText(
                     text: weatherModel.forecasts[0].parts['day']!.uvIndex! > 4
-                        ? 'Высокий УФ индекс'
+                        ? locale.highUV
                         : weatherModel.forecasts[0].parts['day']!.uvIndex! > 2
-                            ? 'Умеренный УФ индекс'
-                            : 'Низкий УФ индекс',
+                            ? locale.mediumUV
+                            : locale.lowUV,
                     fontSize: 15.sp,
                   ),
                 ),

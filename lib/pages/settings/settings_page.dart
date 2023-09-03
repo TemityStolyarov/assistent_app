@@ -60,6 +60,7 @@ class _SettingsPageBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final S locale = S.of(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: backgroundColor,
@@ -70,7 +71,7 @@ class _SettingsPageBody extends StatelessWidget {
             scaffold: Scaffold(
               appBar: PreferredSize(
                 preferredSize: Size.fromHeight(48.sp),
-                child: const CustomAppBar(text: 'Параметры'),
+                child: CustomAppBar(text: locale.parameters),
               ),
               resizeToAvoidBottomInset: false,
               backgroundColor: backgroundColor,
@@ -81,7 +82,7 @@ class _SettingsPageBody extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       CustomText(
-                        text: 'Настройки:',
+                        text: '${locale.settings}:',
                         fontSize: 16.sp,
                         fontWeight: fontWeightMedium,
                         color: backgroundElseWeather,
@@ -109,37 +110,34 @@ class _SettingsPageBody extends StatelessWidget {
                       ),
                       SizedBox(height: 30.sp),
                       CustomText(
-                        text: 'Советы:',
+                        text: '${locale.advices}:',
                         fontSize: 16.sp,
                         fontWeight: fontWeightMedium,
                         color: backgroundElseWeather,
                       ),
                       SizedBox(height: 10.sp),
                       CustomText(
-                        text: '• Удалить задачу - двойное нажатие;',
+                        text: locale.ad1,
                         fontSize: 14.sp,
                         color: fontColorBlack,
                       ),
                       SizedBox(height: 10.sp),
                       CustomText(
-                        text:
-                            '• Редактировать задачу - нажатие на середину строки с задачей;',
-                        fontSize: 14.sp,
-                        color: fontColorBlack,
-                        overflow: TextOverflow.visible,
-                      ),
-                      SizedBox(height: 10.sp),
-                      CustomText(
-                        text:
-                            '• Задачи без установленной даты завершения автоматически помещаются в раздел "отложенные";',
+                        text: locale.ad2,
                         fontSize: 14.sp,
                         color: fontColorBlack,
                         overflow: TextOverflow.visible,
                       ),
                       SizedBox(height: 10.sp),
                       CustomText(
-                        text:
-                            '• Установите лимит задач для главного экрана равным нулю, чтобы скрыть задачи на сегодня',
+                        text: locale.ad3,
+                        fontSize: 14.sp,
+                        color: fontColorBlack,
+                        overflow: TextOverflow.visible,
+                      ),
+                      SizedBox(height: 10.sp),
+                      CustomText(
+                        text: locale.ad4,
                         fontSize: 14.sp,
                         color: fontColorBlack,
                         overflow: TextOverflow.visible,

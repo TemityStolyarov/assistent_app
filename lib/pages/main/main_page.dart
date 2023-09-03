@@ -1,5 +1,5 @@
-import 'package:assistent_app/data/models/task/task_model.dart';
 import 'package:assistent_app/data/models/weather/weather_model.dart';
+import 'package:assistent_app/domain/weather/get_current_weather.dart';
 import 'package:assistent_app/pages/main/bloc/main_page_bloc.dart';
 import 'package:assistent_app/pages/main/widgets/add_task_panel.dart';
 import 'package:assistent_app/pages/main/widgets/custom_background_container.dart';
@@ -63,65 +63,6 @@ class MainPageBody extends StatelessWidget {
     required this.weatherModel,
   });
 
-  //TODO Remove tasks before publishing
-  _initDefaultTaskValues() {
-    Hive.box('tasks').put(
-      0,
-      TaskModel(
-        name: 'Важная задача',
-        note: 'Ни в коем случае нельзя пропустить ее выполнение',
-        isImportant: true,
-        isDone: false,
-      ),
-    );
-    Hive.box('tasks').put(
-      1,
-      TaskModel(
-        name: 'Еще одна обычная задача',
-        note:
-            'Сверстать на Flutter - еще проще, чем сделать дизайн, если честно',
-        isImportant: false,
-        isDone: false,
-      ),
-    );
-    Hive.box('tasks').put(
-      2,
-      TaskModel(
-        name: 'Выполненная важная задача',
-        note: 'Сделать дизайн страницы - обычное легкое дело',
-        isImportant: true,
-        isDone: true,
-      ),
-    );
-    Hive.box('tasks').put(
-      3,
-      TaskModel(
-        name: 'Выполненная задача',
-        note: 'Это было легко, не так ли?',
-        isImportant: false,
-        isDone: true,
-      ),
-    );
-    Hive.box('tasks').put(
-      4,
-      TaskModel(
-        name: 'Скрытая задача',
-        note: 'Тсс, ее тут нет',
-        isImportant: false,
-        isDone: false,
-      ),
-    );
-    Hive.box('tasks').put(
-      5,
-      TaskModel(
-        name: 'Отложенная задача',
-        note: 'Кто ж знал, что будет еще один параметр?',
-        isImportant: false,
-        isDone: false,
-      ),
-    );
-  }
-
   void _showAddTaskSlidingPanel(BuildContext context) {
     showModalBottomSheet(
       shape: RoundedRectangleBorder(
@@ -154,15 +95,12 @@ class MainPageBody extends StatelessWidget {
     );
   }
 
-  _getWeather() {
-    return weatherModel.forecasts[0].parts['day_short']!.condition;
-  }
-
   @override
   Widget build(BuildContext context) {
     String locale = Localizations.localeOf(context).languageCode;
     String dayMonth = DateFormat.MMMMd(locale).format(DateTime.now());
-    // _initDefaultTaskValues();
+    final S localization = S.of(context);
+    // initDefaultTaskValues();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: backgroundColor,
@@ -172,7 +110,7 @@ class MainPageBody extends StatelessWidget {
           final tasksBox = Hive.box('tasks');
           return SafeArea(
             child: BackgroundContainer(
-              weather: _getWeather(),
+              weather: getWeather(weatherModel),
               child: SingleChildScrollView(
                 physics: const AlwaysScrollableScrollPhysics(),
                 child: Padding(
@@ -186,7 +124,7 @@ class MainPageBody extends StatelessWidget {
                       Row(
                         children: [
                           CustomText(
-                            text: 'Сегодня, ',
+                            text: '${localization.today} ',
                             fontSize: 24.sp,
                           ),
                           CustomText(
@@ -255,7 +193,7 @@ class MainPageBody extends StatelessWidget {
                           // ),
                           // const Spacer(),
                           RoundedButton(
-                            title: 'Добавить задачу',
+                            title: localization.addTaskButton,
                             onPressed: () {
                               _showAddTaskSlidingPanel(context);
                             },
@@ -283,7 +221,10 @@ class MainPageBody extends StatelessWidget {
                               color: backgroundColor,
                             ),
                             SizedBox(width: 4.sp),
-                            CustomText(text: 'Параметры', fontSize: 16.sp),
+                            CustomText(
+                              text: localization.parameters,
+                              fontSize: 16.sp,
+                            ),
                           ],
                         ),
                       ),

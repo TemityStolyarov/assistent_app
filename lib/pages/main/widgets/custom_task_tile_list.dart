@@ -1,4 +1,5 @@
 import 'package:assistent_app/data/models/task/task_model.dart';
+import 'package:assistent_app/generated/l10n.dart';
 import 'package:assistent_app/pages/main/widgets/custom_text.dart';
 import 'package:assistent_app/pages/main/widgets/edit_task_panel.dart';
 import 'package:assistent_app/utils/color_palette.dart';
@@ -180,6 +181,7 @@ class _TaskBox extends StatelessWidget {
       context: context,
       isScrollControlled: true,
       builder: (BuildContext context) {
+        final S locale = S.of(context);
         return SizedBox(
           height: 200.sp,
           child: Center(
@@ -201,7 +203,7 @@ class _TaskBox extends StatelessWidget {
                       vertical: 16.sp,
                     ),
                     child: CustomText(
-                      text: 'Вы точно хотите удалить задачу "${task.name}"?',
+                      text: '${locale.confirmDeletion} "${task.name}"?',
                       fontSize: 14.sp,
                       overflow: TextOverflow.fade,
                       align: TextAlign.center,
@@ -210,7 +212,7 @@ class _TaskBox extends StatelessWidget {
                   ),
                   SizedBox(height: 16.sp),
                   RoundedButton(
-                    title: 'Удалить',
+                    title: locale.deleteButton,
                     fontSize: 16.sp,
                     width: 181.sp,
                     height: 50.sp,

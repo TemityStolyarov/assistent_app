@@ -1,3 +1,4 @@
+import 'package:assistent_app/generated/l10n.dart';
 import 'package:assistent_app/pages/main/widgets/custom_text.dart';
 import 'package:assistent_app/pages/main/widgets/custom_tile_container.dart';
 import 'package:assistent_app/utils/color_palette.dart';
@@ -13,6 +14,7 @@ class NoTasksTodayContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final S locale = S.of(context);
     if (isAllTaskHidden) {
       return GestureDetector(
         child: TileContainer(
@@ -25,13 +27,13 @@ class NoTasksTodayContainer extends StatelessWidget {
                 child: Column(
                   children: [
                     CustomText(
-                      text: 'Задачи на сегодня спрятаны :)',
+                      text: locale.hiddenTasks,
                       fontSize: 14.sp,
                       fontWeight: fontWeightMedium,
                     ),
                     SizedBox(height: 5.sp),
                     CustomText(
-                      text: 'Коснитесь для просмотра списка всех задач',
+                      text: locale.showMore,
                       fontSize: 12.sp,
                       color: fontColorSubtitle,
                     ),
@@ -57,13 +59,13 @@ class NoTasksTodayContainer extends StatelessWidget {
                 child: Column(
                   children: [
                     CustomText(
-                      text: 'На сегодня задач нет',
+                      text: locale.noTasks,
                       fontSize: 14.sp,
                       fontWeight: fontWeightMedium,
                     ),
                     SizedBox(height: 5.sp),
                     CustomText(
-                      text: 'Коснитесь для просмотра задач на другие дни',
+                      text: locale.showMoreOtherDays,
                       fontSize: 12.sp,
                       color: fontColorSubtitle,
                     ),

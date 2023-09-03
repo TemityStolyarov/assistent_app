@@ -1,8 +1,9 @@
-import 'package:assistent_app/core/constants.dart';
-import 'package:assistent_app/core/utils/routes/app_router.dart';
+import 'package:assistent_app/utils/color_palette.dart';
+import 'package:assistent_app/navigation/routes/app_router.dart';
 import 'package:assistent_app/generated/l10n.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
+// ignore: depend_on_referenced_packages
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {

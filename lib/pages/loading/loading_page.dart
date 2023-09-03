@@ -49,7 +49,10 @@ class LoadingPage extends StatelessWidget {
     final Position geolocation = await _determinePosition(locale);
     WeatherAPI weatherAPI = WeatherAPI();
     final weatherModel = await weatherAPI.getWeather(
-        latitude: geolocation.latitude, longitude: geolocation.longitude);
+      latitude: geolocation.latitude,
+      longitude: geolocation.longitude,
+      locale: locale,
+    );
     if (context.mounted) {
       AutoRouter.of(context).push(
         MainRoute(

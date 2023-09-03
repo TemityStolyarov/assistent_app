@@ -1,3 +1,4 @@
+import 'package:assistent_app/generated/l10n.dart';
 import 'package:assistent_app/utils/color_palette.dart';
 import 'package:assistent_app/pages/widgets/custom_rounded_button.dart';
 import 'package:assistent_app/pages/widgets/custom_text_field.dart';
@@ -37,6 +38,7 @@ class _EditParameterPanelState extends State<EditParameterPanel> {
 
   @override
   Widget build(BuildContext context) {
+    final S locale = S.of(context);
     return SingleChildScrollView(
       child: Padding(
         padding: EdgeInsets.all(16.sp),
@@ -56,12 +58,12 @@ class _EditParameterPanelState extends State<EditParameterPanel> {
               SizedBox(height: 20.sp),
               CustomNumberTextField(
                 controller: _parameter,
-                text: 'Значение параметра',
+                text: locale.parameterValue,
                 required: true,
               ),
               SizedBox(height: 30.sp),
               RoundedButton(
-                title: 'Подтвердить',
+                title: locale.confirmButtion,
                 fontSize: 16.sp,
                 width: 181.sp,
                 height: 50.sp,

@@ -1,4 +1,5 @@
 import 'package:assistent_app/data/models/task/task_model.dart';
+import 'package:assistent_app/generated/l10n.dart';
 import 'package:assistent_app/pages/main/widgets/custom_text.dart';
 import 'package:assistent_app/utils/color_palette.dart';
 import 'package:assistent_app/pages/widgets/custom_rounded_button.dart';
@@ -46,6 +47,7 @@ class _AddTaskPanelState extends State<AddTaskPanel> {
 
   @override
   Widget build(BuildContext context) {
+    final S locale = S.of(context);
     return SingleChildScrollView(
       child: Padding(
         padding: EdgeInsets.only(top: 16.sp),
@@ -69,20 +71,20 @@ class _AddTaskPanelState extends State<AddTaskPanel> {
                     SizedBox(height: 20.sp),
                     CustomTextField(
                       controller: _name,
-                      text: 'Название',
+                      text: locale.nameField,
                       required: true,
                     ),
                     SizedBox(height: 15.sp),
                     CustomTextField(
                       controller: _note,
-                      text: 'Описание',
+                      text: locale.noteField,
                       required: true,
                     ),
                     SizedBox(height: 15.sp),
                     CustomDateTextField(
                       predictedDate: DateTime.now(),
                       controller: _date,
-                      text: 'Срок выполнения',
+                      text: locale.dateField,
                       required: false,
                     ),
                   ],
@@ -109,7 +111,7 @@ class _AddTaskPanelState extends State<AddTaskPanel> {
                     },
                   ),
                   CustomText(
-                    text: 'Важная задача',
+                    text: locale.importantField,
                     fontSize: 16.sp,
                     color: fontColorBlack.withOpacity(0.75),
                     fontWeight: fontWeightRegular,
@@ -118,7 +120,7 @@ class _AddTaskPanelState extends State<AddTaskPanel> {
               ),
               SizedBox(height: 25.sp),
               RoundedButton(
-                title: 'Добавить',
+                title: locale.addButton,
                 fontSize: 16.sp,
                 width: 181.sp,
                 height: 50.sp,

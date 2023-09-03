@@ -52,6 +52,16 @@ class S {
 
   // skipped getter for the '' key
 
+  /// `Сегодня,`
+  String get today {
+    return Intl.message(
+      'Сегодня,',
+      name: 'today',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `И еще`
   String get and {
     return Intl.message(
@@ -86,11 +96,241 @@ class S {
     );
   }
 
+  /// `Добавить задачу`
+  String get addTaskButton {
+    return Intl.message(
+      'Добавить задачу',
+      name: 'addTaskButton',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Добавить`
+  String get addButton {
+    return Intl.message(
+      'Добавить',
+      name: 'addButton',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Отредактировать`
+  String get editButton {
+    return Intl.message(
+      'Отредактировать',
+      name: 'editButton',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Вы точно хотите удалить задачу`
+  String get confirmDeletion {
+    return Intl.message(
+      'Вы точно хотите удалить задачу',
+      name: 'confirmDeletion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Удалить`
+  String get deleteButton {
+    return Intl.message(
+      'Удалить',
+      name: 'deleteButton',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Подтвердить`
+  String get confirmButtion {
+    return Intl.message(
+      'Подтвердить',
+      name: 'confirmButtion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Название`
+  String get nameField {
+    return Intl.message(
+      'Название',
+      name: 'nameField',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Описание`
+  String get noteField {
+    return Intl.message(
+      'Описание',
+      name: 'noteField',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Срок выполнения`
+  String get dateField {
+    return Intl.message(
+      'Срок выполнения',
+      name: 'dateField',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Важная задача`
+  String get importantField {
+    return Intl.message(
+      'Важная задача',
+      name: 'importantField',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `На сегодня задач нет`
+  String get noTasks {
+    return Intl.message(
+      'На сегодня задач нет',
+      name: 'noTasks',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Задачи на сегодня спрятаны :)`
+  String get hiddenTasks {
+    return Intl.message(
+      'Задачи на сегодня спрятаны :)',
+      name: 'hiddenTasks',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Коснитесь для просмотра списка всех задач`
+  String get showMore {
+    return Intl.message(
+      'Коснитесь для просмотра списка всех задач',
+      name: 'showMore',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Коснитесь для просмотра задач на другие дни`
+  String get showMoreOtherDays {
+    return Intl.message(
+      'Коснитесь для просмотра задач на другие дни',
+      name: 'showMoreOtherDays',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `УФ`
+  String get uv {
+    return Intl.message(
+      'УФ',
+      name: 'uv',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Settings Page`
   String get _ {
     return Intl.message(
       'Settings Page',
       name: '_',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Параметры`
+  String get parameters {
+    return Intl.message(
+      'Параметры',
+      name: 'parameters',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Значение параметра`
+  String get parameterValue {
+    return Intl.message(
+      'Значение параметра',
+      name: 'parameterValue',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Настройки`
+  String get settings {
+    return Intl.message(
+      'Настройки',
+      name: 'settings',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Советы`
+  String get advices {
+    return Intl.message(
+      'Советы',
+      name: 'advices',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `• Удалить задачу - двойное нажатие;`
+  String get ad1 {
+    return Intl.message(
+      '• Удалить задачу - двойное нажатие;',
+      name: 'ad1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `• Редактировать задачу - нажатие на середину строки с задачей;`
+  String get ad2 {
+    return Intl.message(
+      '• Редактировать задачу - нажатие на середину строки с задачей;',
+      name: 'ad2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `• Задачи без установленной даты завершения автоматически помещаются в раздел "отложенные";`
+  String get ad3 {
+    return Intl.message(
+      '• Задачи без установленной даты завершения автоматически помещаются в раздел "отложенные";',
+      name: 'ad3',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `• Установите лимит задач для главного экрана равным нулю, чтобы скрыть задачи на сегодня`
+  String get ad4 {
+    return Intl.message(
+      '• Установите лимит задач для главного экрана равным нулю, чтобы скрыть задачи на сегодня',
+      name: 'ad4',
       desc: '',
       args: [],
     );
@@ -125,6 +365,16 @@ class S {
     return Intl.message(
       'Weather',
       name: '__',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Что-то сломалось! Код ошибки:`
+  String get errorStatusCode {
+    return Intl.message(
+      'Что-то сломалось! Код ошибки:',
+      name: 'errorStatusCode',
       desc: '',
       args: [],
     );
@@ -180,6 +430,86 @@ class S {
     );
   }
 
+  /// `Высокая влажность`
+  String get highHumid {
+    return Intl.message(
+      'Высокая влажность',
+      name: 'highHumid',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Умеренная влажность`
+  String get mediumHumid {
+    return Intl.message(
+      'Умеренная влажность',
+      name: 'mediumHumid',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Пониженная влажность`
+  String get lowHumid {
+    return Intl.message(
+      'Пониженная влажность',
+      name: 'lowHumid',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Высокий УФ индекс`
+  String get highUV {
+    return Intl.message(
+      'Высокий УФ индекс',
+      name: 'highUV',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Умеренный УФ индекс`
+  String get mediumUV {
+    return Intl.message(
+      'Умеренный УФ индекс',
+      name: 'mediumUV',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Низкий УФ индекс`
+  String get lowUV {
+    return Intl.message(
+      'Низкий УФ индекс',
+      name: 'lowUV',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `м/с`
+  String get windSpeed {
+    return Intl.message(
+      'м/с',
+      name: 'windSpeed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Errors`
+  String get ___ {
+    return Intl.message(
+      'Errors',
+      name: '___',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Сервис геолокации на устройстве отключен`
   String get locationError {
     return Intl.message(
@@ -210,16 +540,6 @@ class S {
     );
   }
 
-  /// `Errors`
-  String get ___ {
-    return Intl.message(
-      'Errors',
-      name: '___',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Произошла непредвиденная ошибка при загрузке главного экрана\n\nПожалуйста, обратитесь в поддержку`
   String get error_on_loading_main_page {
     return Intl.message(
@@ -245,6 +565,46 @@ class S {
     return Intl.message(
       'Это поле является обязательным',
       name: 'required_field',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Assets`
+  String get ____ {
+    return Intl.message(
+      'Assets',
+      name: '____',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `assets/images/wind_icon.png`
+  String get windAsset {
+    return Intl.message(
+      'assets/images/wind_icon.png',
+      name: 'windAsset',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `assets/images/drop_icon.png`
+  String get dropAsset {
+    return Intl.message(
+      'assets/images/drop_icon.png',
+      name: 'dropAsset',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `assets/images/sun_icon.png`
+  String get sunAsset {
+    return Intl.message(
+      'assets/images/sun_icon.png',
+      name: 'sunAsset',
       desc: '',
       args: [],
     );

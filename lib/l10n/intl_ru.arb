@@ -6,7 +6,29 @@
     "_": "Settings Page",
     "task_amount_showing_on_main_page": "Количество задач, отображаемых на главном\nэкране приложения: до",
     "elements": "{elements, plural, zero{элементов} one{элемента} few{элементов} other{элементов}}",
-    "__": "Errors",
+    "__": "Weather",
+    "weatherSelect": "{weather, select, clear{Ясно} partlycloudy{Малооблачно} cloudy{С прояснениями} overcast{Пасмурно} lightrain{Небольшой дождь} rain{Дождь} heavyrain{Сильный дождь} showers{Ливень} wetsnow{Дождь со снегом} lightsnow{Небольшой снег} snow{Снег} snowshowers{Снегопад} hail{Град} thunderstorm{Гроза} thunderstormwithrain{Дождь с грозой} thunderstormwithhail{Гроза с градом} other{Странная погода}}",
+    "@weatherSelect": {
+        "description": "A weather message",
+        "placeholders": {
+            "weather": {
+                "type": "String"
+            }
+        }
+    },
+    "windSelect": "{wind, select, nw{Ветер северо-западный} n{Ветер северный} ne{Ветер северо-восточный} e{Ветер восточный} se{Ветер юго-восточный} s{Ветер южный} sw{Ветер юго-западный} w{Ветер западный} other{Штиль}}",
+    "@windSelect": {
+        "description": "A weather message",
+        "placeholders": {
+            "wind": {
+                "type": "String"
+            }
+        }
+    },
+    "locationError": "Сервис геолокации на устройстве отключен",
+    "locationDenied" : "Сервис геолокации на устройстве недоступен",
+    "locationPermDenied" : "Сервис геолокации на устройстве отключен, невозможно запросить разрешение",
+    "___": "Errors",
     "error_on_loading_main_page": "Произошла непредвиденная ошибка при загрузке главного экрана\n\nПожалуйста, обратитесь в поддержку",
     "error_on_loading_settings_page": "Произошла непредвиденная ошибка при загрузке экрана настроек\n\nПожалуйста, обратитесь в поддержку",
     "required_field": "Это поле является обязательным"

@@ -8,11 +8,13 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:assistent_app/feachures/loading/pages/loading_page.dart' as _i1;
-import 'package:assistent_app/feachures/main/pages/main_page.dart' as _i2;
-import 'package:assistent_app/feachures/settings/pages/settings_page.dart'
+import 'package:assistent_app/api/weather_model.dart' as _i6;
+import 'package:assistent_app/features/loading/pages/loading_page.dart' as _i1;
+import 'package:assistent_app/features/main/pages/main_page.dart' as _i2;
+import 'package:assistent_app/features/settings/pages/settings_page.dart'
     as _i3;
 import 'package:auto_route/auto_route.dart' as _i4;
+import 'package:flutter/material.dart' as _i5;
 
 abstract class $AppRouter extends _i4.RootStackRouter {
   $AppRouter({super.navigatorKey});
@@ -26,9 +28,13 @@ abstract class $AppRouter extends _i4.RootStackRouter {
       );
     },
     MainRoute.name: (routeData) {
+      final args = routeData.argsAs<MainRouteArgs>();
       return _i4.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i2.MainPage(),
+        child: _i2.MainPage(
+          key: args.key,
+          weatherModel: args.weatherModel,
+        ),
       );
     },
     SettingsRoute.name: (routeData) {
@@ -56,16 +62,40 @@ class LoadingRoute extends _i4.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i2.MainPage]
-class MainRoute extends _i4.PageRouteInfo<void> {
-  const MainRoute({List<_i4.PageRouteInfo>? children})
-      : super(
+class MainRoute extends _i4.PageRouteInfo<MainRouteArgs> {
+  MainRoute({
+    _i5.Key? key,
+    required _i6.WeatherModel weatherModel,
+    List<_i4.PageRouteInfo>? children,
+  }) : super(
           MainRoute.name,
+          args: MainRouteArgs(
+            key: key,
+            weatherModel: weatherModel,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'MainRoute';
 
-  static const _i4.PageInfo<void> page = _i4.PageInfo<void>(name);
+  static const _i4.PageInfo<MainRouteArgs> page =
+      _i4.PageInfo<MainRouteArgs>(name);
+}
+
+class MainRouteArgs {
+  const MainRouteArgs({
+    this.key,
+    required this.weatherModel,
+  });
+
+  final _i5.Key? key;
+
+  final _i6.WeatherModel weatherModel;
+
+  @override
+  String toString() {
+    return 'MainRouteArgs{key: $key, weatherModel: $weatherModel}';
+  }
 }
 
 /// generated route for

@@ -120,11 +120,101 @@ class S {
     );
   }
 
-  /// `Errors`
+  /// `Weather`
   String get __ {
     return Intl.message(
-      'Errors',
+      'Weather',
       name: '__',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{weather, select, clear{Ясно} partlycloudy{Малооблачно} cloudy{С прояснениями} overcast{Пасмурно} lightrain{Небольшой дождь} rain{Дождь} heavyrain{Сильный дождь} showers{Ливень} wetsnow{Дождь со снегом} lightsnow{Небольшой снег} snow{Снег} snowshowers{Снегопад} hail{Град} thunderstorm{Гроза} thunderstormwithrain{Дождь с грозой} thunderstormwithhail{Гроза с градом} other{Странная погода}}`
+  String weatherSelect(String weather) {
+    return Intl.select(
+      weather,
+      {
+        'clear': 'Ясно',
+        'partlycloudy': 'Малооблачно',
+        'cloudy': 'С прояснениями',
+        'overcast': 'Пасмурно',
+        'lightrain': 'Небольшой дождь',
+        'rain': 'Дождь',
+        'heavyrain': 'Сильный дождь',
+        'showers': 'Ливень',
+        'wetsnow': 'Дождь со снегом',
+        'lightsnow': 'Небольшой снег',
+        'snow': 'Снег',
+        'snowshowers': 'Снегопад',
+        'hail': 'Град',
+        'thunderstorm': 'Гроза',
+        'thunderstormwithrain': 'Дождь с грозой',
+        'thunderstormwithhail': 'Гроза с градом',
+        'other': 'Странная погода',
+      },
+      name: 'weatherSelect',
+      desc: 'A weather message',
+      args: [weather],
+    );
+  }
+
+  /// `{wind, select, nw{Ветер северо-западный} n{Ветер северный} ne{Ветер северо-восточный} e{Ветер восточный} se{Ветер юго-восточный} s{Ветер южный} sw{Ветер юго-западный} w{Ветер западный} other{Штиль}}`
+  String windSelect(String wind) {
+    return Intl.select(
+      wind,
+      {
+        'nw': 'Ветер северо-западный',
+        'n': 'Ветер северный',
+        'ne': 'Ветер северо-восточный',
+        'e': 'Ветер восточный',
+        'se': 'Ветер юго-восточный',
+        's': 'Ветер южный',
+        'sw': 'Ветер юго-западный',
+        'w': 'Ветер западный',
+        'other': 'Штиль',
+      },
+      name: 'windSelect',
+      desc: 'A weather message',
+      args: [wind],
+    );
+  }
+
+  /// `Сервис геолокации на устройстве отключен`
+  String get locationError {
+    return Intl.message(
+      'Сервис геолокации на устройстве отключен',
+      name: 'locationError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Сервис геолокации на устройстве недоступен`
+  String get locationDenied {
+    return Intl.message(
+      'Сервис геолокации на устройстве недоступен',
+      name: 'locationDenied',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Сервис геолокации на устройстве отключен, невозможно запросить разрешение`
+  String get locationPermDenied {
+    return Intl.message(
+      'Сервис геолокации на устройстве отключен, невозможно запросить разрешение',
+      name: 'locationPermDenied',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Errors`
+  String get ___ {
+    return Intl.message(
+      'Errors',
+      name: '___',
       desc: '',
       args: [],
     );
